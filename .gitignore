@@ -1,5 +1,7 @@
 *.mp3
 *.wav
+result
+result-*
 
 demix/
 spec/

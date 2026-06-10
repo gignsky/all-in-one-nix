@@ -68,6 +68,26 @@ For macOS:
 brew install ffmpeg
 ```
 
+## Nix / Flakes
+
+This repository now includes a `flake.nix` so the CLI can be used directly from a flake workflow.
+
+Enter a development shell and run the CLI by name:
+
+```shell
+nix develop
+allin1 --help
+```
+
+Build the packaged CLI into `./result`:
+
+```shell
+nix build
+./result/bin/allin1 --help
+```
+
+The flake includes `ffmpeg` and the Python dependencies needed for the main `allin1` CLI. The first real analysis run may still download the pretrained model weights from upstream.
+
 
 ## Usage for CLI
 
