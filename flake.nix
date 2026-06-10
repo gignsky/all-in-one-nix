@@ -10,7 +10,6 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        lib = pkgs.lib;
         python = pkgs.python311;
         py = pkgs.python311Packages;
 
@@ -61,6 +60,7 @@
           nativeBuildInputs = with py; [
             cython
             numpy
+            pytest-runner
             setuptools
           ];
           propagatedBuildInputs = with py; [
@@ -121,6 +121,8 @@
           propagatedBuildInputs = with py; [
             einops
             julius
+            numpy
+            omegaconf
             openunmix
             pyyaml
             torch
@@ -222,7 +224,7 @@
       {
         packages.default = allin1Cli;
         packages.allin1 = allin1Cli;
-        packages.python-env = allin1Python;
+        packages.pythonEnv = allin1Python;
 
         apps.default = {
           type = "app";
