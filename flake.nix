@@ -6,8 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python311;
@@ -41,7 +47,12 @@
           };
 
           build-system = with py; [ setuptools ];
-          propagatedBuildInputs = with py; [ numpy torch torchaudio tqdm ];
+          propagatedBuildInputs = with py; [
+            numpy
+            torch
+            torchaudio
+            tqdm
+          ];
 
           pythonImportsCheck = [ "openunmix" ];
           doCheck = false;
@@ -83,14 +94,17 @@
             hash = "sha256-cEfs4IGZLFaxiiPO93f/Gb8CGelxH9KzQo9F7A9eHx4=";
           };
 
-          nativeBuildInputs = with pkgs; [
-            ninja
-          ] ++ (with py; [
-            packaging
-            setuptools
-            torch
-            wheel
-          ]);
+          nativeBuildInputs =
+            with pkgs;
+            [
+              ninja
+            ]
+            ++ (with py; [
+              packaging
+              setuptools
+              torch
+              wheel
+            ]);
           propagatedBuildInputs = with py; [
             packaging
             torch
@@ -210,7 +224,10 @@
 
         allin1Cli = pkgs.writeShellApplication {
           name = "allin1";
-          runtimeInputs = [ allin1Python pkgs.ffmpeg ];
+          runtimeInputs = [
+            allin1Python
+            pkgs.ffmpeg
+          ];
           text = ''
             export PYTHONPATH=${self}/src''${PYTHONPATH:+:$PYTHONPATH}
             exec python -m allin1.cli "$@"
@@ -242,5 +259,6 @@
             export PYTHONPATH="$PWD/src''${PYTHONPATH:+:$PYTHONPATH}"
           '';
         };
-      });
+      }
+    );
 }
