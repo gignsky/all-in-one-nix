@@ -6,20 +6,19 @@
       url = "github:gignsky/gigpkgs";
       inputs.nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
     };
-    nixpkgs.follows = "gigpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     {
       self,
-      nixpkgs,
+      gigpkgs,
       flake-utils,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = gigpkgs.legacyPackages.${system};
         python = pkgs.python311;
         py = pkgs.python311Packages;
 
