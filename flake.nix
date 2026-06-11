@@ -19,8 +19,8 @@
       system:
       let
         pkgs = gigpkgs.legacyPackages.${system};
-        python = pkgs.python311;
-        py = pkgs.python311Packages;
+        python = pkgs.python312;
+        py = pkgs.python312Packages;
 
         julius = py.buildPythonPackage rec {
           pname = "julius";
