@@ -2,7 +2,11 @@
   description = "Flake packaging for the allin1 CLI";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    gigpkgs = {
+      url = "github:gignsky/gigpkgs";
+      inputs.nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
+    };
+    nixpkgs.follows = "gigpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
